@@ -56,6 +56,33 @@ public class ExplorerSearch {
         return count;
     }
 
+    public static List<int[]> getPossibleMoves(int[][] island, int row, int col) {
+        List<int[]> moves = new ArrayList<>();
+
+        int numRows = island.length;
+        
+        int numCols = island[0].length;
+        
+        
+        if (row - 1 >= 0 && island[row - 1][col] != 2 && island[row - 1][col] != 3) {
+            moves.add(new int[]{row - 1, col});
+        }
+        
+        if (row + 1 < numRows && island[row + 1][col] != 2 && island[row + 1][col] != 3) {
+            moves.add(new int[]{row + 1, col});
+        }
+        
+        if (col - 1 >= 0 && island[row][col - 1] != 2 && island[row][col - 1] != 3) {
+            moves.add(new int[]{row, col - 1});
+        }
+        
+        if (col + 1 < numCols && island[row][col + 1] != 2 && island[row][col + 1] != 3) {
+            moves.add(new int[]{row, col + 1});
+        }
+        
+        return moves;
+    }
+
     public static int[] startingLocation(int[][] island) {
 
         for(int r = 0; r < island.length; r++) {
