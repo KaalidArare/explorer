@@ -32,6 +32,39 @@ public class ExplorerSearch {
         // Implement your method here!
         // Please also make more test cases
         // I STRONGLY RECOMMEND testing some helpers you might make too
-        return -1;
+        int[] start = startingLocation(island);
+        boolean[][] visited = new boolean[island.length][island[0].length];
+
+        return canReach(island,start[0], start[1], visited);
+    }
+
+    public static int canReach(int[][] island, int r, int c, boolean[][] visited) { 
+        if (r < 0 || r >= island.length || c < 0 || c >= island[0].length) return 0;
+        if (visited[r][c]) return 0;
+        
+        if (island[r][c] == 2 || island[r][c] == 3) return 0;
+
+        visited[r][c] = true;
+
+        int count = 1;
+
+        count += canReach(island, r - 1, c, visited);
+        count += canReach(island, r + 1, c, visited);
+        count += canReach(island, r, c - 1, visited);
+        count += canReach(island, r, c + 1, visited);
+    
+        return count;
+    }
+
+    public static int[] startingLocation(int[][] island) {
+
+        for(int r = 0; r < island.length; r++) {
+            for(int c = 0; c < island[0].length; c++) {
+                if(island[r][c] == 0) {
+                    return new int[]{r,c};
+                }
+            }
+        }
+        throw new IllegalArgumentException("Blocked section");
     }
 }
